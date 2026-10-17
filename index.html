@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#245cff" />
+<title>MindBoost — Quiz & Learn</title>
+<style>
+:root{--blue:#245cff;--blue2:#477cff;--ink:#14213d;--muted:#65728b;--line:#e2e9f5;--bg:#f4f7ff;--green:#149b69;--red:#d94b5b;--card:#fff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 0%,#e7efff 0,transparent 32%),var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);min-height:100vh}
+button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #9cb7ff;outline-offset:3px}
+.app{max-width:1060px;margin:0 auto;padding:22px 20px 42px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.brand{display:flex;gap:10px;align-items:center;font-weight:850;font-size:21px;letter-spacing:-.6px}.logo{height:40px;width:40px;border-radius:13px;background:linear-gradient(145deg,#245cff,#7d65ff);color:white;display:grid;place-items:center;font-size:22px;box-shadow:0 8px 18px #245cff33}.tag{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:8px 12px;border-radius:99px}
+main{max-width:790px;margin:auto}.panel{background:var(--card);border:1px solid #e4eaf5;border-radius:25px;padding:clamp(22px,5vw,42px);box-shadow:0 18px 55px #263e7110}.hero{text-align:center;background:linear-gradient(145deg,#eaf1ff,#fff 62%);overflow:hidden;position:relative}.hero:before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:#cbdcff55;top:-130px;right:-90px}.hero>*{position:relative}.hero-icon{font-size:54px;margin:8px auto 12px}.eyebrow{text-transform:uppercase;letter-spacing:1.8px;font-size:11px;font-weight:800;color:var(--blue)}h1{font-size:clamp(30px,5vw,46px);letter-spacing:-1.6px;margin:8px 0 12px}h2{font-size:clamp(22px,4vw,30px);letter-spacing:-.7px;margin:0 0 12px}p{color:var(--muted);line-height:1.65}.hero p{max-width:470px;margin:0 auto 24px}.btn{border:0;border-radius:14px;padding:14px 20px;font-weight:750;transition:transform .16s,box-shadow .16s,background .16s}.btn:hover{transform:translateY(-1px)}.primary{background:linear-gradient(110deg,var(--blue),#477eff);color:white;box-shadow:0 9px 20px #245cff32}.secondary{background:#f0f4ff;color:var(--blue)}.quiet{background:white;color:var(--muted);border:1px solid var(--line)}.full{width:100%}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}.stat{padding:16px 8px;border:1px solid var(--line);border-radius:16px;background:#ffffffc9}.stat b{display:block;font-size:23px;margin-bottom:4px}.stat span{font-size:12px;color:var(--muted)}.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}.category{border:1px solid var(--line);border-radius:17px;padding:17px 13px;text-align:left;background:#fff}.category .emoji{font-size:24px;display:block;margin-bottom:10px}.category b{display:block;font-size:14px}.category small{display:block;color:var(--muted);margin-top:5px}.category.active{border-color:#8eafff;background:#f1f5ff}.quiz-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}.section-chip{display:inline-flex;align-items:center;gap:7px;border-radius:99px;padding:8px 12px;background:#eff4ff;color:var(--blue);font-size:12px;font-weight:800}.count{font-size:13px;color:var(--muted);font-weight:700;white-space:nowrap}.progress{height:8px;border-radius:99px;background:#edf1f9;overflow:hidden;margin:14px 0 25px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#245cff,#7d65ff);border-radius:99px;transition:width .35s ease}.question{font-size:clamp(21px,4vw,28px);line-height:1.35;letter-spacing:-.6px;margin:0 0 22px}.options{display:grid;gap:11px}.option{width:100%;display:flex;align-items:center;gap:13px;text-align:left;padding:15px 16px;border:1.5px solid var(--line);border-radius:15px;background:white;color:var(--ink);transition:border .16s,background .16s,transform .16s}.option:hover:not(:disabled){border-color:#9db7ff;background:#f8faff;transform:translateY(-1px)}.letter{width:32px;height:32px;border-radius:10px;background:#f1f4fa;color:#52617a;display:grid;place-items:center;font-size:13px;font-weight:850;flex-shrink:0}.option .opt-text{flex:1;font-weight:650}.option .mark{font-size:18px;font-weight:900}.option.correct{border-color:#65d3a6;background:#edfbf4;color:#08784d}.option.correct .letter{background:#c9f5df;color:#08784d}.option.wrong{border-color:#f0a1aa;background:#fff2f3;color:#b42c3e}.option.wrong .letter{background:#ffe0e4;color:#b42c3e}.explanation{margin-top:18px;border-radius:16px;padding:17px 18px;background:#f5f8ff;border:1px solid #e2eaff;animation:rise .25s ease}.explanation.correct-box{background:#effbf5;border-color:#c8f1dc}.explanation.wrong-box{background:#fff5f5;border-color:#ffdfe2}.explanation h3{margin:0 0 6px;font-size:15px}.explanation p{margin:0;font-size:14px;color:#53617a}.quiz-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:24px}.score-pill{font-size:13px;color:var(--muted)}.score-pill strong{color:var(--ink)}.hidden{display:none!important}.result-top{text-align:center}.trophy{font-size:62px;margin:5px 0}.score-circle{width:152px;height:152px;border-radius:50%;border:9px solid #e8edfa;border-top-color:var(--green);display:flex;flex-direction:column;justify-content:center;align-items:center;margin:24px auto}.score-circle strong{font-size:36px;letter-spacing:-1px}.score-circle span{font-size:12px;color:var(--muted)}.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0 26px}.result-stat{border-radius:15px;background:#f7f9ff;padding:15px 8px;text-align:center}.result-stat strong{font-size:22px;display:block}.result-stat span{font-size:12px;color:var(--muted)}.review{margin-top:28px}.review h2{font-size:21px}.review-item{padding:15px 0;border-bottom:1px solid var(--line)}.review-item:last-child{border-bottom:0}.review-q{font-weight:750;font-size:14px;line-height:1.5}.review-a{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.5}.review-a .yes{color:var(--green);font-weight:800}.review-a .no{color:var(--red);font-weight:800}.bottom-note{text-align:center;color:#8490a6;font-size:12px;margin-top:18px}
+@keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.app{padding:14px 12px 28px}.topbar{margin-bottom:15px}.tag{font-size:11px;padding:7px 9px}.panel{border-radius:21px;padding:22px 17px}.categories{grid-template-columns:1fr}.category{display:flex;align-items:center;gap:12px;padding:13px}.category .emoji{margin:0;font-size:25px}.category small{margin-top:3px}.category div{flex:1}.stats{gap:7px}.stat{padding:13px 4px}.stat b{font-size:20px}.stat span{font-size:10px}.quiz-head{align-items:flex-start}.option{padding:12px}.quiz-footer{align-items:stretch}.quiz-footer .btn{padding:13px}.result-stats{gap:7px}.result-stat{padding:13px 4px}.result-stat strong{font-size:20px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+
+<style>
+:root{color-scheme:dark;--blue:#7c83ff;--blue2:#45d9e8;--ink:#f3f5ff;--muted:#a6b0cf;--line:#343b5c;--bg:#090d1c;--green:#4be0a3;--red:#ff718b;--card:#141a30}
+body{background:radial-gradient(ellipse at 8% 4%,#30215f 0,transparent 34%),radial-gradient(ellipse at 95% 14%,#103e54 0,transparent 30%),radial-gradient(ellipse at 60% 100%,#271b48 0,transparent 36%),#090d1c;color:var(--ink)}
+.tag{color:#c2c9e5;background:#171d34;border-color:#353d5e}
+.panel{background:linear-gradient(145deg,#171d34f5,#11172bf7);border-color:#343b5c;box-shadow:0 22px 70px #0005}
+.hero{background:radial-gradient(circle at 15% 0%,#5140a455,transparent 40%),radial-gradient(circle at 90% 20%,#0da8b633,transparent 35%),linear-gradient(145deg,#1a2040,#11172b 70%)}
+.hero:before{background:linear-gradient(135deg,#9b78ff44,#42d8e822)}
+.eyebrow{color:#8eabff}
+.btn{color:var(--ink)}.primary{background:linear-gradient(110deg,#706bff,#24b9d1);color:#fff;box-shadow:0 10px 28px #625dff40}.secondary{background:#242c4c;color:#dce4ff}.quiet{background:#171d34;color:#d5dcf5;border-color:#38415f}
+.stat{background:#ffffff08;border-color:#343b5c}.stat span,.category small{color:#a6b0cf}
+.category{background:#171d34;border-color:#343b5c;color:var(--ink)}.category.active{border-color:#8188ff;background:#28264d}
+.section-chip{background:#292650;color:#c7c9ff}.count{color:#a6b0cf}.progress{background:#292f4b}.progress-fill{background:linear-gradient(90deg,#8177ff,#32d7dc)}
+.option{background:#171d34;border-color:#353d5c;color:var(--ink)}.option:hover:not(:disabled){border-color:#8b91ff;background:#202747}.letter{background:#282f4d;color:#d5dcf5}.option.correct{border-color:#3bc894;background:#12372f;color:#8ff0c9}.option.correct .letter{background:#1d5949;color:#9ff3d4}.option.wrong{border-color:#ff718b;background:#3a202f;color:#ffb4c3}.option.wrong .letter{background:#5b2a3c;color:#ffd3dc}
+.explanation{background:#1c2440;border-color:#343e67}.explanation.correct-box{background:#12372f;border-color:#236a52}.explanation.wrong-box{background:#3a202f;border-color:#7b344b}.explanation p{color:#d2d9f0}.score-pill{color:#a6b0cf}.score-pill strong{color:var(--ink)}.score-circle{border-color:#303856;border-top-color:var(--green)}.score-circle span,.result-stat span{color:#a6b0cf}.result-stat{background:#1b223c}.review-item{border-color:#343b5c}.review-a{color:#b6c0dc}.bottom-note{color:#8793b7}
+.dashboard{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 4px}.dash-card{border:1px solid #343b5c;border-radius:15px;padding:14px 10px;background:#ffffff08;text-align:center}.dash-card strong{display:block;font-size:22px;color:#a8b2ff}.dash-card span{font-size:11px;color:#a6b0cf}xp-note{font-size:12px;color:#aab6d7}.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:22px 0}.team-member{padding:14px;border:1px solid #394365;border-radius:15px;background:linear-gradient(140deg,#222849,#171d34);font-weight:750}.team-member span{display:block;color:#a6b0cf;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}.glow-text{background:linear-gradient(90deg,#b3a7ff,#76eaff);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media(max-width:600px){.dashboard{gap:7px}.dash-card{padding:12px 4px}.dash-card strong{font-size:19px}.team-grid{grid-template-columns:1fr}}
+</style>
+
+</head>
+<body>
+<div class="app">
+  <header class="topbar"><div class="brand"><div class="logo">✦</div><span>MindBoost</span></div><div class="tag">Learn · Practice · Grow</div></header>
+  <main>
+    <section id="home" class="panel hero">
+      <div class="hero-icon">🧠</div><div class="eyebrow">Welcome to your brain workout</div><h1><span class="glow-text">MindBoost</span><br>Think. Learn. Level up.</h1>
+      <p>Your colorful, dark-mode quiz adventure! Answer 15 questions across science, mathematics, and logical reasoning, earn XP, and build your personal best.</p>
+      <button class="btn primary full" id="startBtn">Start the quiz <span aria-hidden="true">→</span></button>
+      <div class="stats"><div class="stat"><b>15</b><span>Questions</span></div><div class="stat"><b>3</b><span>Sections</span></div><div class="stat"><b>∞</b><span>Your own pace</span></div></div><div class="dashboard"><div class="dash-card"><strong id="dashXp">0</strong><span>Total XP</span></div><div class="dash-card"><strong id="dashBest">—</strong><span>Best score</span></div><div class="dash-card"><strong id="dashPlayed">0</strong><span>Quizzes played</span></div></div><p class="xp-note">✨ Earn 10 XP for every correct answer!</p>
+      <div class="categories">
+        <div class="category"><span class="emoji">🔬</span><div><b>Science</b><small>Questions 1–5</small></div></div>
+        <div class="category"><span class="emoji">➗</span><div><b>Mathematics</b><small>Questions 6–10</small></div></div>
+        <div class="category"><span class="emoji">🧩</span><div><b>Logical Reasoning</b><small>Questions 11–15</small></div></div>
+      </div>
+    </section>
+
+    <section id="quiz" class="panel hidden" aria-live="polite">
+      <div class="quiz-head"><span id="sectionChip" class="section-chip">🔬 Science</span><span id="count" class="count">Question 1 of 15</span></div><p class="xp-note" style="margin:10px 0 4px">⚡ Earn 10 XP for each correct answer. Take your time!</p>
+      <div class="progress" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="15" aria-valuenow="0" id="progress"><div class="progress-fill" id="progressFill"></div></div>
+      <h2 id="question" class="question"></h2>
+      <div id="options" class="options"></div>
+      <div id="explanation" class="explanation hidden" aria-live="polite"></div>
+      <div class="quiz-footer"><span id="scorePill" class="score-pill">Score: <strong>0</strong> / 15</span><button id="nextBtn" class="btn primary" disabled>Choose an answer</button></div>
+    </section>
+
+    <section id="results" class="panel hidden">
+      <div class="result-top"><div class="trophy" id="trophy">🏆</div><div class="eyebrow">Quiz completed</div><h1 id="resultTitle">Great effort!</h1><p id="resultMessage">Every question is a chance to learn.</p>
+      <div class="score-circle"><strong id="finalScore">0/15</strong><span>correct answers</span></div></div>
+      <div class="result-stats"><div class="result-stat"><strong id="percent">0%</strong><span>Accuracy</span></div><div class="result-stat"><strong id="correctCount">0</strong><span>Correct</span></div><div class="result-stat"><strong id="missedCount">15</strong><span>To review</span></div></div>
+      <div class="dashboard"><div class="dash-card"><strong id="earnedXp">+0</strong><span>XP earned</span></div><div class="dash-card"><strong id="totalXp">0</strong><span>Total XP</span></div><div class="dash-card"><strong id="bestScore">—</strong><span>Best score</span></div></div><button class="btn primary full" id="restartBtn">Try again ↻</button><button class="btn secondary full" id="teamBtn" style="margin-top:10px">Meet the team →</button>
+      <div class="review"><h2>Answer review</h2><p>Review each question and its explanation to help it stick.</p><div id="reviewList"></div></div>
+    </section>
+    <section id="thankyou" class="panel hero hidden">
+      <div class="hero-icon">💜</div><div class="eyebrow">A little note from our team</div><h1>Thank <span class="glow-text">you!</span></h1>
+      <p>Thanks for exploring MindBoost with us. Keep asking questions, stay curious, and remember: every great mind grows one answer at a time.</p>
+      <h2 style="margin-top:28px">Meet the team</h2>
+      <div class="team-grid">
+        <div class="team-member"><span>Member 1</span>Hunny</div>
+        <div class="team-member"><span>Member 2</span>Mannat</div>
+        <div class="team-member"><span>Member 3</span>Divyansh</div>
+        <div class="team-member"><span>Member 4</span>Harnoor</div>
+        <div class="team-member"><span>Member 5</span>Anshika</div>
+      </div>
+      <button class="btn primary full" id="backHomeBtn">Back to MindBoost home ↗</button>
+    </section>
+  </main>
+  <div class="bottom-note">Made with curiosity by Hunny · Mannat · Divyansh · Harnoor · Anshika</div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function initMindBoost(){
+const questions = [
+{section:"Science",icon:"🔬",q:"Which gas is released during photosynthesis?",options:["Carbon dioxide","Oxygen","Nitrogen","Hydrogen"],answer:1,explanation:"During photosynthesis, plants use carbon dioxide and water to make food using sunlight. Oxygen is released as a byproduct."},
+{section:"Science",icon:"🔬",q:"What is the SI unit of force?",options:["Joule","Watt","Newton","Pascal"],answer:2,explanation:"The newton (N) is the SI unit of force. One newton is the force needed to accelerate a 1 kg mass by 1 m/s²."},
+{section:"Science",icon:"🔬",q:"Which cell organelle is known as the powerhouse of the cell?",options:["Nucleus","Ribosome","Mitochondria","Golgi apparatus"],answer:2,explanation:"Mitochondria release usable energy from food through cellular respiration, producing most of the ATP used by the cell."},
+{section:"Science",icon:"🔬",q:"Which of the following is a pure substance?",options:["Air","Soil","Milk","Distilled water"],answer:3,explanation:"Distilled water contains water molecules with most dissolved impurities removed. Air, soil, and milk are mixtures."},
+{section:"Science",icon:"🔬",q:"Which type of energy does a moving object possess?",options:["Potential energy","Kinetic energy","Chemical energy","Nuclear energy"],answer:1,explanation:"Kinetic energy is the energy of motion. It depends on an object's mass and the square of its speed."},
+{section:"Mathematics",icon:"➗",q:"The diagonals of a rhombus are 16 cm and 12 cm. What is the length of its side?",options:["8 cm","10 cm","12 cm","14 cm"],answer:1,explanation:"The diagonals of a rhombus bisect each other at right angles. Half-diagonals are 8 cm and 6 cm, so the side is √(8² + 6²) = √100 = 10 cm."},
+{section:"Mathematics",icon:"➗",q:"What is the value of 2³ + 3²?",options:["15","17","19","13"],answer:1,explanation:"Evaluate the powers first: 2³ = 8 and 3² = 9. Then add them: 8 + 9 = 17."},
+{section:"Mathematics",icon:"➗",q:"The sum of the interior angles of a triangle is:",options:["90°","180°","270°","360°"],answer:1,explanation:"The three interior angles of every triangle add up to 180° in ordinary Euclidean geometry."},
+{section:"Mathematics",icon:"➗",q:"If x + 7 = 15, what is the value of x?",options:["6","7","8","9"],answer:2,explanation:"Subtract 7 from both sides: x = 15 − 7 = 8."},
+{section:"Mathematics",icon:"➗",q:"What is the square root of 2025?",options:["35","40","45","55"],answer:2,explanation:"45 × 45 = 2025, so the principal square root of 2025 is 45."},
+{section:"Logical Reasoning",icon:"🧩",q:"Find the next number in the series: 2, 6, 12, 20, 30, __.",options:["36","40","42","44"],answer:2,explanation:"The differences are +4, +6, +8, and +10. The next difference is +12, so 30 + 12 = 42. (The terms also follow n × (n + 1).)"},
+{section:"Logical Reasoning",icon:"🧩",q:"Find the odd one out.",options:["Square","Triangle","Circle","Rectangle"],answer:2,explanation:"A circle has no straight sides or corners. The square, triangle, and rectangle are polygons made from straight line segments."},
+{section:"Logical Reasoning",icon:"🧩",q:"If CAT is coded as DBU, how is DOG coded using the same pattern?",options:["EPH","EOG","FPH","DPH"],answer:0,explanation:"Each letter moves forward by one place in the alphabet: D → E, O → P, and G → H. Therefore DOG becomes EPH."},
+{section:"Logical Reasoning",icon:"🧩",q:"A clock shows 3:00. What is the angle between its hour and minute hands?",options:["45°","90°","180°","360°"],answer:1,explanation:"At 3:00, the minute hand points to 12 and the hour hand points to 3. Each hour mark represents 30°, so the angle is 3 × 30° = 90°."},
+{section:"Logical Reasoning",icon:"🧩",q:"Riya is taller than Aman. Aman is taller than Rahul. Who is the shortest?",options:["Riya","Aman","Rahul","Cannot be determined"],answer:2,explanation:"The height order is Riya > Aman > Rahul. Rahul is shorter than both Riya and Aman, so Rahul is the shortest."}
+];
+let index=0,score=0,answers=Array(questions.length).fill(null),locked=false;
+let earnedThisQuiz=0;
+function getStats(){try{return JSON.parse(localStorage.getItem("mindboostStats")||'{"xp":0,"best":0,"played":0}')}catch(e){return {xp:0,best:0,played:0}}}
+function saveStats(stats){try{localStorage.setItem("mindboostStats",JSON.stringify(stats))}catch(e){}}
+function updateDashboard(){const st=getStats();$("dashXp").textContent=st.xp;$("dashBest").textContent=st.played?st.best+"/15":"—";$("dashPlayed").textContent=st.played;}
+const $=id=>document.getElementById(id);
+function show(id){["home","quiz","results","thankyou"].forEach(s=>$(s).classList.toggle("hidden",s!==id));window.scrollTo({top:0,behavior:"smooth"});if(id==="home")updateDashboard();}
+function start(){index=0;score=0;earnedThisQuiz=0;answers=Array(questions.length).fill(null);locked=false;show("quiz");renderQuestion();}
+function renderQuestion(){
+ locked=false;const q=questions[index];
+ $("sectionChip").textContent=q.icon+" "+q.section;
+ $("count").textContent=`Question ${index+1} of ${questions.length}`;
+ $("progressFill").style.width=((index)/questions.length*100)+"%";
+ $("progress").setAttribute("aria-valuenow",index);
+ $("question").textContent=q.q;$("options").innerHTML="";$("explanation").classList.add("hidden");
+ $("scorePill").innerHTML=`Score: <strong>${score}</strong> / 15`;
+ $("nextBtn").disabled=true;$("nextBtn").textContent="Choose an answer";
+ q.options.forEach((option,i)=>{const b=document.createElement("button");b.className="option";b.type="button";b.innerHTML=`<span class="letter">${"ABCD"[i]}</span><span class="opt-text"></span><span class="mark"></span>`;b.querySelector(".opt-text").textContent=option;b.addEventListener("click",()=>choose(i));$("options").appendChild(b);});
+}
+function choose(choice){
+ if(locked)return;locked=true;const q=questions[index];answers[index]=choice;
+ const buttons=[...$("options").querySelectorAll("button")];
+ buttons.forEach((b,i)=>{b.disabled=true;if(i===q.answer){b.classList.add("correct");b.querySelector(".mark").textContent="✓";}else if(i===choice){b.classList.add("wrong");b.querySelector(".mark").textContent="×";}});
+ const correct=choice===q.answer;let gained=0;if(correct){score++;gained=10;earnedThisQuiz+=gained;const st=getStats();st.xp+=gained;saveStats(st)}
+ $("scorePill").innerHTML=`Score: <strong>${score}</strong> / 15`;
+ $("explanation").className="explanation "+(correct?"correct-box":"wrong-box");
+ $("explanation").innerHTML=`<h3>${correct?"✓ Correct!":"↻ Not quite — keep learning"}</h3><p><strong>Correct answer: ${"ABCD"[q.answer]}) ${escapeHtml(q.options[q.answer])}</strong><br>${escapeHtml(q.explanation)}${correct?`<br><strong style="color:#4be0a3">+${gained} XP earned!</strong>`:""}</p>`;
+ $("nextBtn").disabled=false;$("nextBtn").textContent=index===questions.length-1?"See my results →":"Next question →";
+ $("progressFill").style.width=((index+1)/questions.length*100)+"%";$("progress").setAttribute("aria-valuenow",index+1);
+ $("nextBtn").focus({preventScroll:true});
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function next(){if(!locked)return;if(index<questions.length-1){index++;renderQuestion();}else finish();}
+function finish(){
+ show("results");const pct=Math.round(score/questions.length*100);const st=getStats();st.played++;st.best=Math.max(st.best,score);saveStats(st);
+ $("earnedXp").textContent="+"+earnedThisQuiz;$("totalXp").textContent=st.xp;$("bestScore").textContent=st.best+"/15";
+ $("finalScore").textContent=`${score}/15`;$("percent").textContent=pct+"%";$("correctCount").textContent=score;$("missedCount").textContent=15-score;
+ $("trophy").textContent=pct>=80?"🏆":pct>=50?"🌟":"💪";
+ $("resultTitle").textContent=pct>=80?"Brilliant work!":pct>=50?"Nice progress!":"Keep building!";
+ $("resultMessage").textContent=pct>=80?"You’ve got a strong grasp of these topics. Keep challenging yourself!":pct>=50?"You’re learning with every question. Review the explanations and try again.":"Every expert starts somewhere. Review the explanations and give it another go.";
+ $("reviewList").innerHTML="";
+ questions.forEach((q,i)=>{const ok=answers[i]===q.answer;const item=document.createElement("div");item.className="review-item";const given=answers[i]===null?"Not answered":("ABCD"[answers[i]]+") "+q.options[answers[i]]);item.innerHTML=`<div class="review-q">${i+1}. ${escapeHtml(q.q)}</div><div class="review-a"><span class="${ok?"yes":"no"}">${ok?"✓ Correct":"✗ Your answer: "+escapeHtml(given)}</span><br>Correct answer: <strong>${"ABCD"[q.answer]}) ${escapeHtml(q.options[q.answer])}</strong><br>${escapeHtml(q.explanation)}</div>`;$("reviewList").appendChild(item);});
+}
+$("startBtn").addEventListener("click",start);$("nextBtn").addEventListener("click",next);$("restartBtn").addEventListener("click",start);
+$("teamBtn").addEventListener("click",()=>show("thankyou"));$("backHomeBtn").addEventListener("click",()=>show("home"));updateDashboard();
+document.addEventListener("keydown",e=>{if($("quiz").classList.contains("hidden"))return;if(!locked&&["1","2","3","4","a","b","c","d"].includes(e.key.toLowerCase())){const map={"1":0,"2":1,"3":2,"4":3,a:0,b:1,c:2,d:3};choose(map[e.key.toLowerCase()]);}else if(locked&&e.key==="Enter")next();});
+});
+</script>
+<noscript><div style="margin:20px;padding:16px;border:1px solid #d94b5b;border-radius:12px;background:#fff">MindBoost needs JavaScript enabled to run the interactive quiz. Please enable JavaScript in your browser and reload this file.</div></noscript>
+</body>
+</html>
